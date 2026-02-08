@@ -32,9 +32,9 @@ def simple_calculator(operation: str, num1: float, num2: float) -> float:
         if num2 != 0:
             return num1 / num2
         else:
-            return "Cannot divide by zero."
+            raise ValueError("Cannot divide by zero.")
     else:
-        return "Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'."
+        raise ValueError("Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'.")
 
 def request_sanitized_number(prompt: str):
     while True:
