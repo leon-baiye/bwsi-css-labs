@@ -22,44 +22,39 @@ def simple_calculator(operation: str, num1: float, num2: float) -> float:
     Returns:
         float: The result of the operation.
     """
-    rlist = [0, "success"]
-    if type(num1)== str or type(num2) == str:
-        rlist[0] = "Invalid input. Please enter a number."
-        rlist[1] = "error"
-    else:
-        if operation == "add":
-            rlist[0] = str(num1 + num2)
-        elif operation == "subtract":
-            rlist[0] = str(num2 - num1)
-        elif operation == "multiply":
-            rlist[0] = str(num1 *num2)
-        elif operation == "divide":
-            if num2 != 0:
-                rlist[0] = str(num1 / num2)
-            else:
-                rlist[0] = "Cannot divide by zero."
-                rlist[1] = "error"
+    if operation == "add":
+        return num1 + num2
+    elif operation == "subtract":
+        return num1 - num2
+    elif operation == "multiply":
+        return num1 * num2
+    elif operation == "divide":
+        if num2 != 0:
+            return num1 / num2
         else:
-            rlist[0] = "Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'."
-            rlist[1] = "error"
-    return rlist
+            raise ValueError("Cannot divide by zero.")
+    else:
+        raise ValueError("Invalid operation. Please choose from 'add', 'subtract', 'multiply', or 'divide'.")
 
+def request_sanitized_number(prompt: str):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
 def main():
     
     print(f"===== Simple Calculator =====")
 
     # Ask the user for sample input    
-    num1 = input("Enter the first number: ")
-    num2 = input("Enter the second number: ")
+    num1 = request_sanitized_number("Enter the first number: ")
+    num2 = request_sanitized_number("Enter the second number: ")
     operation = input("Enter the operation (add, subtract, multiply, divide): ").strip().lower()
 
     # Perform the calculation and display the result
     result = simple_calculator(operation, num1, num2)
-    if result[1] == "success":
-        print(f"The result of {operation}ing {num1} and {num2} is: {result[0]}")
-    else:
-        print("Error occured during calculation: ", result[0])
+    print(f"The result of {operation}ing {num1} and {num2} is: {result}")
 
 if __name__ == "__main__":
     main()
